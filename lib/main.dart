@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sports_events_app/event_list.dart';
 import 'package:sports_events_app/theme/colors.dart';
 
 void main() {
@@ -44,9 +45,9 @@ class EventsHomePage extends StatelessWidget {
                 labelColor: AppColors.selectedColor,
                 unselectedLabelColor: AppColors.unselectedColor,
                 tabs: [
-                  Tab(text: 'YESTERDAY'),
-                  Tab(text: 'TODAY'),
-                  Tab(text: 'TOMORROW'),
+                  Tab(text: 'YESTERDAY', height: 32),
+                  Tab(text: 'TODAY', height: 32),
+                  Tab(text: 'TOMORROW', height: 32),
                 ],
               ),
             ),
@@ -54,9 +55,9 @@ class EventsHomePage extends StatelessWidget {
         ),
         body: const TabBarView(
           children: [
-            Text('Here events for today'),
-            Text('Here events for yesterday'),
-            Text('Here events for tomorrow'),
+            EventsList(dateFilter: 'Yesterday'),
+            EventsList(dateFilter: 'Today'),
+            EventsList(dateFilter: 'Tomorrow'),
           ],
         ),
       ),
