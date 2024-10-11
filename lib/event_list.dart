@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sports_events_app/event_cell.dart';
 import 'package:sports_events_app/models/sports_event.dart';
 import 'package:sports_events_app/theme/colors.dart';
 
@@ -13,6 +14,8 @@ class EventsList extends StatelessWidget {
         .where((event) => event.dateStarting == dateFilter)
         .toList();
 
+    sortSportsEventsChronologically(filteredEvents);
+
     if (filteredEvents.isEmpty) {
       return Center(
         child: Text(
@@ -26,7 +29,7 @@ class EventsList extends StatelessWidget {
     return ListView.builder(
       itemCount: filteredEvents.length,
       itemBuilder: (context, index) {
-        return Text(filteredEvents[index].teams);
+        return EventCell(event: filteredEvents[index]);
       },
     );
   }
