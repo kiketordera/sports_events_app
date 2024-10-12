@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sports_events_app/event_list.dart';
+import 'package:sports_events_app/events_detail_page.dart';
+import 'package:sports_events_app/models/sports_event.dart';
 import 'package:sports_events_app/theme/colors.dart';
 
 void main() {
@@ -55,12 +57,55 @@ class EventsHomePage extends StatelessWidget {
         ),
         body: const TabBarView(
           children: [
-            EventsList(dateFilter: 'Yesterday'),
-            EventsList(dateFilter: 'Today'),
-            EventsList(dateFilter: 'Tomorrow'),
+            EventsTab(dateFilter: 'Yesterday'),
+            EventsTab(dateFilter: 'Today'),
+            EventsTab(dateFilter: 'Tomorrow'),
           ],
         ),
       ),
+    );
+  }
+}
+
+class EventsTab extends StatefulWidget {
+  final String dateFilter;
+
+  const EventsTab({super.key, required this.dateFilter});
+
+  @override
+  EventsTabState createState() => EventsTabState();
+}
+
+class EventsTabState extends State<EventsTab>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return Navigator(
+      onGenerateRoute: (RouteSettings settings) {
+        WidgetBuilder builder;
+
+        switch (settings.name) {
+          case '/':
+            builder =
+                (BuildContext _) => EventsList(dateFilter: widget.dateFilter);
+            break;
+          case '/details':
+            final event = settings.arguments as SportsEvent;
+            builder = (BuildContext _) => EventDetailsPage(event: event);
+            break;
+          default:
+            throw Exception('Invalid route: ${settings.name}');
+        }
+
+        return MaterialPageRoute(
+          builder: builder,
+          settings: settings,
+        );
+      },
     );
   }
 }

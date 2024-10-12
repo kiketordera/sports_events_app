@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sports_events_app/events_detail_page.dart';
 import 'package:sports_events_app/models/sports_event.dart';
 import 'package:sports_events_app/theme/colors.dart';
 
@@ -11,46 +10,54 @@ class EventCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      hoverColor: AppColors.hoverColor,
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => EventDetailsPage(event: event),
-          ),
+        Navigator.of(context).pushNamed(
+          '/details',
+          arguments: event,
         );
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          elevation: 2.0,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 16.0),
-                  child: Image.network(
-                    event.iconUrl,
-                    height: 40,
-                    width: 40,
-                  ),
-                ),
-                Expanded(
-                  child: EventData(
-                    event: event,
-                    alignment: CrossAxisAlignment.start,
-                  ),
-                ),
-                LeagueBadge(event: event),
-              ],
+        padding:
+            const EdgeInsets.only(left: 18, right: 20, top: 21, bottom: 20),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 21),
+              child: EventImage(event: event),
             ),
-          ),
+            Expanded(
+              child: EventData(
+                event: event,
+                alignment: CrossAxisAlignment.start,
+              ),
+            ),
+            LeagueBadge(event: event),
+          ],
         ),
       ),
+    );
+  }
+}
+
+class EventImage extends StatelessWidget {
+  const EventImage({
+    super.key,
+    required this.event,
+  });
+
+  final SportsEvent event;
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.network(
+      event.iconUrl,
+      height: 40,
+      width: 40,
+      errorBuilder: (context, error, stackTrace) {
+        return const Icon(Icons.error, color: Colors.red);
+      },
     );
   }
 }
@@ -78,7 +85,7 @@ class EventData extends StatelessWidget {
             color: AppColors.textColor,
           ),
         ),
-        const SizedBox(height: 4.0),
+        const SizedBox(height: 4),
         Text(
           event.teams,
           style: const TextStyle(
@@ -104,7 +111,7 @@ class LeagueBadge extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: const BoxDecoration(
-        color: AppColors.backgroundColorBlue,
+        color: AppColors.hoverColor,
         shape: BoxShape.circle,
       ),
       child: Column(

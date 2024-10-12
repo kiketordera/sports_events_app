@@ -26,8 +26,17 @@ class EventsList extends StatelessWidget {
       );
     }
 
-    return ListView.builder(
+    return ListView.separated(
       itemCount: filteredEvents.length,
+      separatorBuilder: (BuildContext context, int index) {
+        return const Divider(
+          height: 5,
+          color: AppColors.dividerColor,
+          thickness: 1,
+          indent: 20,
+          endIndent: 20,
+        );
+      },
       itemBuilder: (context, index) {
         return EventCell(event: filteredEvents[index]);
       },

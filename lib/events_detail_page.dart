@@ -11,7 +11,32 @@ class EventDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      backgroundColor: AppColors.backgroundColorWhite,
+      appBar: AppBar(
+        backgroundColor: AppColors.backgroundColorWhite,
+        leadingWidth: 120,
+        leading: TextButton.icon(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(
+            Icons.arrow_back,
+            color: AppColors.textColorGrayNavbar,
+          ),
+          label: const Text(
+            'Go Back',
+            style: TextStyle(
+              color: AppColors.textColorGrayNavbar,
+              fontWeight: FontWeight.w400,
+              fontSize: 16,
+            ),
+          ),
+          style: TextButton.styleFrom(
+            padding: EdgeInsets.zero,
+          ),
+        ),
+        elevation: 0,
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -37,11 +62,7 @@ class EventDetailsPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 24),
                   Center(
-                    child: Image.network(
-                      event.iconUrl,
-                      height: 46,
-                      width: 46,
-                    ),
+                    child: EventImage(event: event),
                   ),
                   const SizedBox(height: 24),
                   const Text(
