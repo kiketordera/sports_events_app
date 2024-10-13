@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:sports_events_app/bloc/events/events_event.dart';
-import 'package:sports_events_app/bloc/events/events_state.dart';
+import 'package:sports_events_app/bloc/events/event.dart';
+import 'package:sports_events_app/bloc/events/state.dart';
 import 'package:sports_events_app/models/sports_event.dart';
 import 'package:sports_events_app/repositories/sports_event_repository.dart';
 
@@ -29,7 +29,7 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
         emit(EventsLoaded(events: filteredEvents));
       }
     } catch (e) {
-      emit(const EventsError(message: 'Failed to load events'));
+      emit(EventsError(message: 'Failed to load events: ${e.toString()}'));
     }
   }
 }

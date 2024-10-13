@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sports_events_app/bloc/events/events_bloc.dart';
-import 'package:sports_events_app/bloc/events/events_event.dart';
-import 'package:sports_events_app/bloc/events/events_state.dart';
+import 'package:sports_events_app/bloc/events/bloc.dart';
+import 'package:sports_events_app/bloc/events/event.dart';
+import 'package:sports_events_app/bloc/events/state.dart';
 import 'package:sports_events_app/models/sports_event.dart';
 import 'package:sports_events_app/repositories/sports_event_repository.dart';
 import 'package:sports_events_app/ui/theme/colors.dart';

@@ -18,6 +18,7 @@ class EventImage extends StatelessWidget {
       errorWidget: (context, url, error) =>
           const Icon(Icons.error, color: Colors.red),
       fit: BoxFit.cover,
+      cacheKey: event.iconUrl,
     );
   }
 }
